@@ -3,9 +3,13 @@ from flask import Flask, Request, Response
 
 app = Flask(__name__)
 
-@app.route("/api")
+@app.route("/api/getPosts")
 def api():
-    pass
+    return {}
+
+@app.route("/api/getPost<id>")
+def getPost(id):
+    return {}
 
 # main router
 app.start()
