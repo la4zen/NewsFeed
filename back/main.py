@@ -44,13 +44,21 @@ def getPost(id):
 
 @app.route("/api/login")
 def login():
-    return {"response" : 200}
+    login, password = request.data.get("login"), request.data.get("password")
+    if not all(login, password):
+        return {"error" : "Необходимо указать логин и пароль"}
+    lastrowid = c.execute(f"SELECT * FROM users WHERE login='{login}' AND password='{md5(password)}'").lastrowid
+    if c.fetchone() == None:
+        return {"error" : "Логин и пароль не найдены"}
+    tkn = randstr()
+    c.execute(f"INSERT INTO sessions(user_id, token) VALUES ({lastrowid}, '{tkn}')")
+    return {"response" : 200, "token" : tkn}
 
 @app.route("/api/register")
 def register():
     login, password = request.data.get("login"), request.data.get("password")
     r = r"[A-Za-z]"
-    if any([login, password]) == None:
+    if not all([login, password]):
         return {"error" : "Необходимо указать логин и пароль"}
     elif all([len(login) < 6, len(password) < 8]):
         return {"error" : "Длина логина должна быть больше 6-ти символов, а пароль должен быть больше 8-ми символов"}
