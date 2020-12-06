@@ -8,4 +8,4 @@ def dict_factory(cursor, row):
     return d
 
 def randstr(lenght:int=32):
-    return "".join(choice(ascii_letters+digits) for in range(lenght))
+    return "".join(choice(ascii_letters+digits) for _ in range(lenght))
