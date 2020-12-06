@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import sqlite3, re
 from util import *
 from hashlib import md5
@@ -9,7 +9,7 @@ db = sqlite3.connect("database.sqlite3", check_same_thread=False)
 db.row_factory = dict_factory
 c = db.cursor()
 
-c.execute("""
+c.executescript("""
     CREATE TABLE IF NOT EXISTS posts (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         title TEXT,
@@ -44,8 +44,9 @@ def getPost(id):
 
 @app.route("/api/login")
 def login():
-    login, password = request.data.get("login"), request.data.get("password")
-    if not all(login, password):
+    data = request.json
+    login, password = data.get("login"), data.get("password")
+    if not all([login, password]):
         return {"error" : "Необходимо указать логин и пароль"}
     lastrowid = c.execute(f"SELECT * FROM users WHERE login='{login}' AND password='{md5(password)}'").lastrowid
     if c.fetchone() == None:
@@ -56,7 +57,8 @@ def login():
 
 @app.route("/api/register")
 def register():
-    login, password = request.data.get("login"), request.data.get("password")
+    data = request.json
+    login, password = data.get("login"), data.get("password")
     r = r"[A-Za-z]"
     if not all([login, password]):
         return {"error" : "Необходимо указать логин и пароль"}
