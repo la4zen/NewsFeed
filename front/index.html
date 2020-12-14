@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="js/main.js"></script>
+        <link rel="stylesheet" href="css/main.css"/>
+    </head>
+    <body>
+        <div id="app" v-if="work">
+            <div v-if="!editor" class="posts">
+                <button v-on:click="change_editor" class="post" style="width:800px;">{{ change_text }} </button>
+                <div v-for="post in posts" class="post">
+                    <h1>{{ post.Title }}</h1>
+                    <h3>{{ post.Text}}</h3>
+                    <h2>Автор : {{ post.Author }} | {{ post.PostTime }}</h2>
+                </div>
+            </div>
+            <div v-if="editor" class="Adder">
+                <button v-on:click="change_editor" style="width: 700px;">{{ change_text }} </button>
+                <form onsubmit="alert('Пост отправлен!')">
+                    Title : <input type="text" v-model="postEditor.title" required><br/><br/>
+                    Text :  <textarea v-model="postEditor.text" required rows="5" cols="20"> </textarea><br/>
+                    Author: <input type="text" v-model="postEditor.author" required><br/>
+                    <input type="submit" v-on:click="postAdd" value="Отправить"/>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

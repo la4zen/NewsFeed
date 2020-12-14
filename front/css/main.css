@@ -1,0 +1,18 @@
+.Adder{
+    margin: auto;
+    width: 800px;
+}
+.Adder input {
+    margin-top: 10px;
+}
+.posts {
+    width: 800px;
+    margin: auto;
+}
+.post{
+    padding-left: 15px ;
+    border-radius: 15px;
+    border-color: black;
+    border-style: solid;
+    margin-top: 20px;
+}
