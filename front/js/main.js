@@ -19,10 +19,10 @@ window.onload = function () {
         },
         methods: {
             getPosts : function() {
-                axios.post(document.location.origin+":8080/api/v1/getPosts")
+                axios.post("http://92.63.101.132:8080/api/v1/getPosts")
                 .then(response => {
                     console.log(response)
-                    this.posts = response.data.response
+                    this.posts = response.data.response.reverse()
                     this.work = true
                 }).catch(response => {
                     alert("Нет подключения к серверу")
@@ -34,10 +34,10 @@ window.onload = function () {
                     data.append("title", this.postEditor.title)
                     data.append("author", this.postEditor.author)
                     data.append("text", this.postEditor.text)
-                    axios.post(document.location.origin+":8080/api/v1/addPost", data=data)
+                    axios.post("http://92.63.101.132:8080/api/v1/addPost", data=data)
                     .then(response => {
                         alert("Пост успешно добавлен!")
-                    }).cathc(response => {
+                    }).catch(response => {
                         console.log(response)
                         alert("Нет подключения к серверу")
                     })
@@ -50,6 +50,9 @@ window.onload = function () {
                 } else {
                     this.change_text = "Добавить пост"
                 }
+            },
+            getTime : function(date) {
+                return moment(date).locale("ru").fromNow()
             }
         }
     })

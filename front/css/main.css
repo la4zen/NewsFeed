@@ -1,18 +1,33 @@
 .Adder{
-    margin: auto;
-    width: 800px;
+    background-color: whitesmoke;
+    border-radius: 15px;
+    width: fit-content;
+    border-style: solid;
+    border-color: black;
+    padding: 15px;
+    margin: 10px auto;
 }
-.Adder input {
-    margin-top: 10px;
-}
-.posts {
-    width: 800px;
+#app {
     margin: auto;
+    width:800px;
 }
 .post{
-    padding-left: 15px ;
+    padding-left: 15px;
     border-radius: 15px;
     border-color: black;
     border-style: solid;
-    margin-top: 20px;
+    margin-top: 10px;
+    background-color: whitesmoke;
+}
+body {
+    background-image: url("../img/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: Open Sans;
+}
+.button {
+    border-radius: 15px;
+    border-color: black;
+    padding: 5px;
+    width: inherit;
 }

@@ -1,28 +1,29 @@
-<html>
+<html lang="ru">
     <head>
         <meta charset="UTF-8">
+        <script src="https://momentjs.com/downloads/moment-with-locales.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="js/main.js"></script>
         <link rel="stylesheet" href="css/main.css"/>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
     </head>
     <body>
         <div id="app" v-if="work">
-            <div v-if="!editor" class="posts">
-                <button v-on:click="change_editor" class="post" style="width:800px;">{{ change_text }} </button>
+            <button v-on:click="change_editor" class="button">{{ change_text }} </button>
+            <div v-if="!editor">
                 <div v-for="post in posts" class="post">
-                    <h1>{{ post.Title }}</h1>
-                    <h3>{{ post.Text}}</h3>
-                    <h2>Автор : {{ post.Author }} | {{ post.PostTime }}</h2>
+                    <h2>{{ post.Title }}</h2>
+                    <h4>{{ post.Text }}</h4>
+                    <h3>Опубликовал {{ post.Author }} {{ getTime(post.PostTime) }}</h3>
                 </div>
             </div>
             <div v-if="editor" class="Adder">
-                <button v-on:click="change_editor" style="width: 700px;">{{ change_text }} </button>
                 <form onsubmit="alert('Пост отправлен!')">
                     Title : <input type="text" v-model="postEditor.title" required><br/><br/>
-                    Text :  <textarea v-model="postEditor.text" required rows="5" cols="20"> </textarea><br/>
-                    Author: <input type="text" v-model="postEditor.author" required><br/>
-                    <input type="submit" v-on:click="postAdd" value="Отправить"/>
+                    Author: <input type="text" v-model="postEditor.author" required><br/><br/>
+                    Text : <textarea v-model="postEditor.text" required rows="15" cols="40" style="resize: none;"></textarea><br/><br/>
+                    <input type="submit" v-on:click="postAdd" value="Отправить" class="button"/>
                 </form>
             </div>
         </div>
